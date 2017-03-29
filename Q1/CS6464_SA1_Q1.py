@@ -3,7 +3,7 @@ import numpy as np
 from sklearn import linear_model
 import matplotlib.pyplot as plotter
 
-data_sa1 = open('/home/prateep/Documents/CS6464/SA1/Q1/Q1_data_02.csv', 'rb')
+data_sa1 = open('/home/prateep/Documents/Courses/CS6464/CS6464/Q1/Q1_data_02.csv', 'rb')
 reader = csv.reader(data_sa1)
 
 def format_data(reader_object, size):

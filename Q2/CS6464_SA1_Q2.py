@@ -1,15 +1,29 @@
 import numpy as np
 import matplotlib.pyplot as plotter
+import matplotlib.mlab as mlab
 import scipy.special as sps
 
-#Parameters of the Gamma distribution
-shape = 2
-scale = 1
-m = 100000
+def generate_gamma(shape, m):
+    #Parameters of the Gamma distribution
+    scale = 1
+    dist = np.random.gamma(shape, scale, m)
+    est_avg = sum(dist)/m
+    act_avg = shape * scale
+    return [est_avg, act_avg];
 
-dist = np.random.gamma(shape, scale, m)
+clt = []
+for i in range(100000):
+    m = 1000
+    gamma = generate_gamma(2, m)
+    clt_value = np.sqrt(m) * (gamma[0] - gamma[1])
+    clt.append(clt_value)
+    #print clt_value
 
-count, bins, ignored = plotter.hist(dist, 50, normed=True)
-y = bins**(shape-1)*(np.exp(-bins/scale) / (sps.gamma(shape)*scale**shape))
-plotter.plot(bins, y, linewidth=2, color='r')
+#print clt
+n, bins, patches = plotter.hist(clt, 50, normed=1, facecolor='green', alpha=0.5)
+# add a 'best fit' line
+y = mlab.normpdf(bins, 0, 1.426)
+plotter.plot(bins, y, 'r--')
+plotter.subplots_adjust(left=0.15)
 plotter.show()
+
