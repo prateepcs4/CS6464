@@ -12,8 +12,8 @@ def generate_gamma(shape, m):
     return [est_avg, act_avg];
 
 clt = []
-for i in range(100000):
-    m = 1000
+for i in range(10000):
+    m = 100
     gamma = generate_gamma(2, m)
     clt_value = np.sqrt(m) * (gamma[0] - gamma[1])
     clt.append(clt_value)
