@@ -28,7 +28,6 @@ def eval_func(func_type):
     # plotter.show()
     return x_vals, y_vals
 
-
 # Evaluate the function: Options - 1 / 2
 x, y = eval_func(2)
 
@@ -39,14 +38,14 @@ rand_x = x[rand_index]
 rand_y = y[rand_index]
 
 # Add Gaussian noise
-noise = np.random.normal(0,1,num_sample)
+noise = np.random.normal(0,0.06,num_sample)
 noise_y = np.add(rand_y, noise)
 
 # Fit a polynomial
-degree = 2
+degree = 9
 coeffs = poly.polyfit(rand_x, noise_y, degree)
 ffit = poly.Polynomial(coeffs)
 
 # Plot the result
-plotter.plot(rand_x, ffit(rand_x), 'r.', rand_x, noise_y, 'b.')
+plotter.plot(rand_x, ffit(rand_x), 'r.', rand_x, noise_y, 'b.', rand_x, rand_y, 'g.')
 plotter.show()
