@@ -32,7 +32,7 @@ def eval_func(func_type):
 x, y = eval_func(2)
 
 # Randomly select points
-num_sample = 100
+num_sample = 500
 rand_index = random.sample(range(0, len(x)), num_sample)
 rand_x = x[rand_index]
 rand_y = y[rand_index]
@@ -42,10 +42,10 @@ noise = np.random.normal(0,0.06,num_sample)
 noise_y = np.add(rand_y, noise)
 
 # Fit a polynomial
-degree = 9
+degree = 20
 coeffs = poly.polyfit(rand_x, noise_y, degree)
 ffit = poly.Polynomial(coeffs)
 
 # Plot the result
-plotter.plot(rand_x, ffit(rand_x), 'r.', rand_x, noise_y, 'b.', rand_x, rand_y, 'g.')
+plotter.plot(rand_x, ffit(rand_x), 'r.',  rand_x, noise_y, 'b.', rand_x, rand_y, 'g.', markersize = 3)
 plotter.show()
