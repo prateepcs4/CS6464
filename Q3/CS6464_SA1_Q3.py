@@ -22,23 +22,31 @@ def eval_func(func_type):
         y = sp.exp(-5*((x - 0.3)**2)) + 0.5 * sp.exp(-100*((x - 0.5)**2)) + 0.5 * sp.exp(-100*((x - 0.75)**2))
         lam_x = lambdify(x, y, modules=['numpy'])
 
-        x_vals = linspace(-100, 100, 10000)
+        x_vals = linspace(-0.5, 0.5, 10000)
         y_vals = lam_x(x_vals)
     # plotter.plot(x_vals, y_vals)
     # plotter.show()
     return x_vals, y_vals
 
-num_sample = 500
+
+# Evaluate the function: Options - 1 / 2
 x, y = eval_func(2)
+
+# Randomly select points
+num_sample = 100
 rand_index = random.sample(range(0, len(x)), num_sample)
 rand_x = x[rand_index]
 rand_y = y[rand_index]
 
+# Add Gaussian noise
 noise = np.random.normal(0,1,num_sample)
 noise_y = np.add(rand_y, noise)
 
-d = 9
-coeffs = poly.polyfit(rand_x, noise_y, d)
-ffit = poly.polyval(rand_x, coeffs)
-plotter.plot(rand_x, ffit, 'r*', rand_x, noise_y, 'b.')
+# Fit a polynomial
+degree = 2
+coeffs = poly.polyfit(rand_x, noise_y, degree)
+ffit = poly.Polynomial(coeffs)
+
+# Plot the result
+plotter.plot(rand_x, ffit(rand_x), 'r.', rand_x, noise_y, 'b.')
 plotter.show()
